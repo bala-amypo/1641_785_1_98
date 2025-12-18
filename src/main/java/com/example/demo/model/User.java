@@ -64,7 +64,7 @@ public class User{
     public User(){}
 
     public User(
-        
+        Long id,String fullName,String email,String password,String role,String preferredLearningStyle,Date createdAt
     ){
         this.id=id;
         this.fullName=fullName;

@@ -59,7 +59,7 @@ public class Course{
     public Course(){}
 
     public Course(
-
+        Long id,String title,String description,User instructor,String 
     ){
         this.id=id;
         this.title=title;
