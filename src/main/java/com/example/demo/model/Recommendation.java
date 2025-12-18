@@ -57,8 +57,13 @@ public class Recommendation{
     public Recommendation(){}
 
     public Recommendation(
-        Long id,User user,Date generatedAt,String recommendedLessonIds,
+        Long id,User user,Date generatedAt,String recommendedLessonIds,String basisSnapshot,BigDecimal confidenceScore
     ){
-    
+        this.id=id;
+        this.user=user;
+        this.generatedAt=generatedAt;
+        this.recommendedLessonIds=recommendedLessonIds;
+        this.basisSnapshot=basisSnapshot;
+        this.confidenceScore=confidenceScore;
     }
 }
