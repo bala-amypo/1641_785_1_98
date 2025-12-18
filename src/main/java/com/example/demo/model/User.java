@@ -1,9 +1,16 @@
 package com.example.demo.model;
 
 import java.sql.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+
+@Entity
 public class User{
     @Id
-    @GeneratedValue(strategy=GenerationType.
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String fullName;
     private String email;
@@ -54,4 +61,5 @@ public class User{
     public Date getCreatedAt() {
         return createdAt;
     }
+    public User(){}
 }
