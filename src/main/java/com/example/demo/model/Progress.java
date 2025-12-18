@@ -16,4 +16,6 @@ public class Progress{
     private int progressPercent;
     private Date lastAccessedAt;
     private BigDecimal score;
+
+    
 }
