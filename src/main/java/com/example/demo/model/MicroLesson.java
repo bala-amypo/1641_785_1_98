@@ -70,7 +70,7 @@ public class MicroLesson{
     public MicroLesson(){}
 
     public MicroLesson(
-
+        Long id,Course course,String title,int durationMinutes,String contentType,String difficulty,String tag,String publishDate
     ){
         this.id=id;
         this.course=course;
