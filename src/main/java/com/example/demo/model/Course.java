@@ -12,7 +12,7 @@ public class Course{
     private Long id;
     private String title;
     private String description;
-    private String instructor; // Doubt
+    private String instructor; // Doubt  datatype-User
     private String category;
     private Date createdAt;
 
@@ -35,13 +35,14 @@ public class Course{
         this.description = description;
     }
 
-    //Doubt
+    //Doubt  datatype-User
     public String getInstructor() {
         return instructor;
     }
     public void setInstructor(String instructor) {
         this.instructor = instructor;
     }
+    //Doubt
     public String getCategory() {
         return category;
     }

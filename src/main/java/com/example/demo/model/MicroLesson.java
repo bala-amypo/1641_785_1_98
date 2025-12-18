@@ -11,4 +11,9 @@ public class MicroLesson{
     @Id
     private Long id;
     private Course course;
+    private String title;
+    private int durationMinutes;
+    private String contentType;
+    private String difficulty;
+    private 
 }
