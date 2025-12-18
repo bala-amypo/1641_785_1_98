@@ -10,5 +10,6 @@ import jakarta.persistence.GenerationType;
 public class Recommendation{
     @Id
     private Long id;
+    private User user; // Doubt (datatype)
     private 
 }
