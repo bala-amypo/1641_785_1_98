@@ -67,7 +67,12 @@ public class Progress{
         Long id,User user,MicroLesson microLesson,String status, int progressPercent,Date lastAccessedAt,BigDecimal score
     ){
         this.id=id;
-        this.
+        this.user=user;
+        this.microLesson=microLesson;
+        this.status=status;
+        this.progressPercent=progressPercent;
+        this.lastAccessedAt=lastAccessedAt;
+        this.score=score;
     }
 
 }

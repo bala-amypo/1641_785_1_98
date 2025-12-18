@@ -54,5 +54,11 @@ public class Recommendation{
     public void setConfidenceScore(BigDecimal confidenceScore) {
         this.confidenceScore = confidenceScore;
     }
+    public Recommendation(){}
 
+    public Recommendation(
+        Long id,User user,Date generatedAt,String recommendedLessonIds,
+    ){
+    
+    }
 }
