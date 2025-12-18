@@ -12,7 +12,7 @@ public class Course{
     private Long id;
     private String title;
     private String description;
-    private String instructor; // Doubt  datatype-User
+    private User instructor; // Doubt  datatype-User
     private String category;
     private Date createdAt;
 
@@ -36,10 +36,10 @@ public class Course{
     }
 
     //Doubt  datatype-User
-    public String getInstructor() {
+    public User getInstructor() {
         return instructor;
     }
-    public void setInstructor(String instructor) {
+    public void setInstructor(User instructor) {
         this.instructor = instructor;
     }
     //Doubt
