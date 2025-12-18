@@ -8,5 +8,7 @@ import jakarta.persistence.GenerationType;
 
 @Entity
 public class Recommendation{
-    
+    @Id
+    private Long id;
+    private 
 }
