@@ -7,5 +7,5 @@ public class User{
     private String password;
     private String role;
     private String preferredLearningStyle;
-    private 
+    private Date createdAt;
 }
