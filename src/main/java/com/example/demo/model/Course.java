@@ -53,4 +53,17 @@ public class Course{
         this.createdAt = createdAt;
     }
 
+    public Course(){}
+
+    public Course(
+
+    ){
+        this.id=id;
+        this.title=title;
+        this.description=description;
+        this.instructor=instructor;
+        this.category=category;
+        this.createdAt=createdAt;
+    }
+
 }
