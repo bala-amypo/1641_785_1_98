@@ -73,6 +73,12 @@ public class MicroLesson{
 
     ){
         this.id=id;
-        this.
+        this.course=course;
+        this.title=title;
+        this.durationMinutes=durationMinutes;
+        this.contentType=contentType;
+        this.difficulty=difficulty;
+        this.tag=tag;
+        this.publishDate=publishDate;
     }
 }
