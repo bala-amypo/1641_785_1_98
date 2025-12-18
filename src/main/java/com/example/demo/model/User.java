@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import java.sql.Data;
 public class User{
+    @Id
+    @GeneratedValue(strategy=GenerationType.
     private Long id;
     private String fullName;
     private String email;
