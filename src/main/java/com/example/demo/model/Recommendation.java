@@ -11,5 +11,8 @@ public class Recommendation{
     @Id
     private Long id;
     private User user; // Doubt (datatype)
-    private 
+    private Date generatedAt;
+    private String recommendedLessonIds;
+    private String basisSnapshot;
+    private BigDecimal confidenceScore;
 }
