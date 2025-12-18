@@ -12,7 +12,7 @@ public class Course{
     private Long id;
     private String title;
     private String description;
-    private String instructor;
+    private String instructor; // Doubt
     private String category;
     private Date createdAt;
 
@@ -34,6 +34,8 @@ public class Course{
     public void setDescription(String description) {
         this.description = description;
     }
+
+    //Doubt
     public String getInstructor() {
         return instructor;
     }
