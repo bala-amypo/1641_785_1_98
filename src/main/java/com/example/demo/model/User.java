@@ -62,4 +62,14 @@ public class User{
         return createdAt;
     }
     public User(){}
+
+    public User(){
+        this.id=id;
+        this.fullName=fullName;
+        this.email=email;
+        this.password=password;
+        this.role=role;
+        this.preferredLearningStyle=preferredLearningStyle;
+        this.createdAt=createdAt;
+    }
 }
