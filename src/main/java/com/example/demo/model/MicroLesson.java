@@ -15,5 +15,6 @@ public class MicroLesson{
     private int durationMinutes;
     private String contentType;
     private String difficulty;
-    private 
+    private String tag;
+    private String publishDate;
 }
