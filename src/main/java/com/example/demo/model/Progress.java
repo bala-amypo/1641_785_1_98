@@ -11,5 +11,9 @@ public class Progress{
     @Id
     private Long id;
     private User user; //datatype user
-    private 
+    private MicroLesson microLesson;
+    private String status;
+    private int progressPercent;
+    private Date lastAccessedAt;
+    private BigDecimal score;
 }
