@@ -23,11 +23,11 @@ public class CourseController {
         return c.post(co);
     }
     @PutMapping("/{courseId}")
-    public Course getupdate(@PathVariable Long id,@RequestBody Course co){
+    public Course getupdate(@PathVariable("courseId") Long id,@RequestBody Course co){
         return c.updateCourse(id,co);
     }
     @GetMapping("/courseId")
-    public Course GetCourse(@PathVariable Long id){
+    public Course GetCourse(@PathVariable("courseId") Long id){
         return c.getCourse(id);
     }
 
