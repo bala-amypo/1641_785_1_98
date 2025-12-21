@@ -41,7 +41,7 @@ public class AuthController {
         return us.deldat(id);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public User up(@PathVariable Long id,@RequestBody User u){
         return us.updatadata(id, u);
     }
