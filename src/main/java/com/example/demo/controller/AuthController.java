@@ -36,7 +36,7 @@ public class AuthController {
         return us.getAll();
     }
 
-    @DeleteMapping("/dele")
+    @DeleteMapping("/dele/{id}")
     public String del(@PathVariable Long id){
         return us.deldat(id);
     }
