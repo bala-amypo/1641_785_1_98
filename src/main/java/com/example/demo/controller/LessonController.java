@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.MicroLesson;
 import com.example.demo.service.LessonService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/lesson")
 public class LessonController {
     @Autowired LessonService ls;
     @PostMapping("/post")
-    public MicroLesson postall(MicroLesson ml){
+    public MicroLesson postall(@Valid MicroLesson ml){
         return ls.post(ml);
     }
 

@@ -14,19 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Course;
 import com.example.demo.service.CourseService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
     @Autowired CourseService c;
     @PostMapping("/")
-    public Course cpost(@RequestBody Course co){
+    public Course cpost(@Valid @RequestBody Course co){
         return c.post(co);
     }
     @PutMapping("/{courseId}")
     public Course getupdate(@PathVariable("courseId") Long id,@RequestBody Course co){
         return c.updateCourse(id,co);
     }
-    @GetMapping("/courseId")
+    @GetMapping("/courseId/{courseId}")
     public Course GetCourse(@PathVariable("courseId") Long id){
         return c.getCourse(id);
     }
