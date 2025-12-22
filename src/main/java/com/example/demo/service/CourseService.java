@@ -6,10 +6,7 @@ import com.example.demo.model.Course;
 
 public interface CourseService {
     Course post(Course c);
-    // Course createCourse(Course course,Long instructorId);
     Course updateCourse(Long courseId,Course course);
-    //List<Course> listCoursesByInstructor(Long instructorId);
     Course getCourse(Long courseId);
-
     List<Course> getall();
 } 
