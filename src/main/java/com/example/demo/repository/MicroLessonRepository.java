@@ -1,10 +1,9 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.MicroLesson;  // ← CHANGED
+import com.example.demo.model.MicroLesson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,6 +15,6 @@ public interface MicroLessonRepository extends JpaRepository<MicroLesson, Long> 
            "(:difficulty IS NULL OR ml.difficulty = :difficulty) AND " +
            "(:contentType IS NULL OR ml.contentType = :contentType)")
     List<MicroLesson> findByFilters(@Param("tags") String tags,
-                                   @Param("difficulty") MicroLesson.Difficulty difficulty,
-                                   @Param("contentType") MicroLesson.ContentType contentType);
+                                   @Param("difficulty") String difficulty,
+                                   @Param("contentType") String contentType);
 }
