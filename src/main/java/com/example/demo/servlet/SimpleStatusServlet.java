@@ -10,8 +10,6 @@ import java.io.PrintWriter;
 
 @WebServlet("/status")
 public class SimpleStatusServlet extends HttpServlet {
-
-    // must be public so DemoSystemTest can call it directly
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setStatus(200);

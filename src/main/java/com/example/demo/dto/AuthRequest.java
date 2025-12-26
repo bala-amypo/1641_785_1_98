@@ -4,7 +4,6 @@ public class AuthRequest {
     private String email;
     private String password;
 
-    // constructors, getters, setters
     public AuthRequest() {}
     
     public AuthRequest(String email, String password) {
