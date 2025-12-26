@@ -1,2 +1,9 @@
-package com.example.demo.dto
+package com.example.demo.dto;
 
+import lombok.Data;
+
+@Data
+public class RecommendationRequest {
+    private Long userId;
+    private String preferences;
+}

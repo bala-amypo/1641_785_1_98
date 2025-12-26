@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.model.MicroLesson;
 import java.util.List;
 
-import com.example.demo.model.MicroLesson;
-
 public interface LessonService {
-    MicroLesson post(MicroLesson ml);
-    MicroLesson getLesson(Long lessonId);
-    MicroLesson updateLesson(Long lessonId,MicroLesson lesson);
-    List<MicroLesson> getall();
-    String delemdata(Long id);
-} 
+    MicroLesson addLesson(Long courseId, MicroLesson lesson);
+    MicroLesson updateLesson(Long id, MicroLesson lesson);
+    MicroLesson getLesson(Long id);
+    List<MicroLesson> findLessonsByFilters(String tags, MicroLesson.Difficulty difficulty, MicroLesson.ContentType contentType);
+}
