@@ -20,9 +20,6 @@ public class SecurityConfig {
         this.jwtUtil = jwtUtil;
     }
 
-    // REMOVED: @Bean public BCryptPasswordEncoder passwordEncoder() { ... }
-    // Spring Security auto-configures BCryptPasswordEncoder
-
     @Bean
     public JwtFilter jwtFilter() {
         return new JwtFilter(jwtUtil);
