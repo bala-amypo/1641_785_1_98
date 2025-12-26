@@ -4,22 +4,24 @@ import com.example.demo.model.Course;
 import com.example.demo.model.User;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.CourseService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CourseServiceImpl implements com.example.demo.service.CourseService {
+public class CourseServiceImpl implements CourseService {
     
-    @Autowired
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
     
-    @Autowired
-    private UserRepository userRepository;
+    public CourseServiceImpl(CourseRepository courseRepository, UserRepository userRepository) {
+        this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
+    }
     
     @Override
     public Course createCourse(Course course, Long instructorId) {
         User instructor = userRepository.findById(instructorId)
-                .orElseThrow(() -> new RuntimeException("Instructor not found"));
+            .orElseThrow(() -> new RuntimeException("Instructor not found"));
         
         if (courseRepository.existsByTitleAndInstructorId(course.getTitle(), instructorId)) {
             throw new RuntimeException("Course already exists");
@@ -32,15 +34,16 @@ public class CourseServiceImpl implements com.example.demo.service.CourseService
     @Override
     public Course updateCourse(Long id, Course course) {
         Course existing = courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
-        course.setId(id);
-        course.setInstructor(existing.getInstructor());
-        return courseRepository.save(course);
+            .orElseThrow(() -> new RuntimeException("Course not found"));
+        
+        existing.setTitle(course.getTitle());
+        existing.setDescription(course.getDescription());
+        return courseRepository.save(existing);
     }
     
     @Override
     public Course getCourse(Long id) {
         return courseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+            .orElseThrow(() -> new RuntimeException("Course not found"));
     }
 }
