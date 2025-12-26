@@ -1,48 +1,40 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.model.MicroLesson;
 import com.example.demo.service.LessonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/lesson")
+@RequestMapping("/api/lessons")
 public class LessonController {
-    @Autowired LessonService ls;
-    @PostMapping("/post")
-    public MicroLesson postall(@Valid MicroLesson ml){
-        return ls.post(ml);
+    
+    @Autowired
+    private LessonService lessonService;
+    
+    @PostMapping("/course/{courseId}")
+    public ResponseEntity<MicroLesson> addLesson(@PathVariable Long courseId, @RequestBody MicroLesson lesson) {
+        return ResponseEntity.ok(lessonService.addLesson(courseId, lesson));
     }
-
-    @GetMapping("/search/{search}")
-    public MicroLesson getbyID(@PathVariable("search") Long id){
-        return ls.getLesson(id);
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<MicroLesson> getLesson(@PathVariable Long id) {
+        return ResponseEntity.ok(lessonService.getLesson(id));
     }
-
-    @PutMapping("/{lessonId}")
-    public MicroLesson update(@PathVariable("lessonId") Long id,MicroLesson ml){
-        return ls.updateLesson(id, ml);
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<MicroLesson> updateLesson(@PathVariable Long id, @RequestBody MicroLesson lesson) {
+        return ResponseEntity.ok(lessonService.updateLesson(id, lesson));
     }
-
-    @GetMapping("/getall")
-    public List<MicroLesson> getAll(){
-        return ls.getall();
+    
+    @GetMapping("/filter")
+    public ResponseEntity<List<MicroLesson>> findLessons(
+            @RequestParam(required = false) String tags,
+            @RequestParam(required = false) MicroLesson.Difficulty difficulty,
+            @RequestParam(required = false) MicroLesson.ContentType contentType) {
+        return ResponseEntity.ok(lessonService.findLessonsByFilters(tags, difficulty, contentType));
     }
-
-    @DeleteMapping("/dele/{id}")
-    public String delete(@PathVariable Long id){
-        return ls.delemdata(id);
-    }
-
 }
