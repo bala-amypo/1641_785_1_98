@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Progress;
 import com.example.demo.service.ProgressService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,17 +11,23 @@ import java.util.List;
 @RequestMapping("/api/progress")
 public class ProgressController {
     
-    @Autowired
-    private ProgressService progressService;
+    private final ProgressService progressService;
     
-    @PostMapping("/{userId}/{lessonId}")
-    public ResponseEntity<Progress> recordProgress(@PathVariable Long userId, @PathVariable Long lessonId, 
-                                                  @RequestBody Progress progress) {
-        return ResponseEntity.ok(progressService.recordProgress(userId, lessonId, progress));
+    public ProgressController(ProgressService progressService) {
+        this.progressService = progressService;
     }
     
-    @GetMapping("/user/{userId}")
+    @PostMapping("/users/{userId}/lessons/{lessonId}")
+    public ResponseEntity<Progress> recordProgress(@PathVariable Long userId, 
+                                                  @PathVariable Long lessonId,
+                                                  @RequestBody Progress progress) {
+        Progress recorded = progressService.recordProgress(userId, lessonId, progress);
+        return ResponseEntity.ok(recorded);
+    }
+    
+    @GetMapping("/users/{userId}")
     public ResponseEntity<List<Progress>> getUserProgress(@PathVariable Long userId) {
-        return ResponseEntity.ok(progressService.getUserProgress(userId));
+        List<Progress> progressList = progressService.getUserProgress(userId);
+        return ResponseEntity.ok(progressList);
     }
 }

@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.RecommendationRequest;
 import com.example.demo.model.Recommendation;
 import com.example.demo.service.RecommendationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/recommendations")
 public class RecommendationController {
     
-    @Autowired
-    private RecommendationService recommendationService;
+    private final RecommendationService recommendationService;
     
-    @GetMapping("/latest/{userId}")
-    public ResponseEntity<Recommendation> getLatestRecommendation(@PathVariable Long userId) {
-        return ResponseEntity.ok(recommendationService.getLatestRecommendation(userId));
+    public RecommendationController(RecommendationService recommendationService) {
+        this.recommendationService = recommendationService;
+    }
+    
+    @PostMapping("/latest")
+    public ResponseEntity<Recommendation> getLatestRecommendation(@RequestBody RecommendationRequest request) {
+        Recommendation recommendation = recommendationService.getLatestRecommendation(request.getUserId());
+        return ResponseEntity.ok(recommendation);
     }
 }

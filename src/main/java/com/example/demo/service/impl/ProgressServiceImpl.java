@@ -6,41 +6,45 @@ import com.example.demo.model.User;
 import com.example.demo.repository.MicroLessonRepository;
 import com.example.demo.repository.ProgressRepository;
 import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.service.ProgressService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ProgressServiceImpl implements com.example.demo.service.ProgressService {
+public class ProgressServiceImpl implements ProgressService {
     
-    @Autowired
-    private ProgressRepository progressRepository;
+    private final ProgressRepository progressRepository;
+    private final UserRepository userRepository;
+    private final MicroLessonRepository microLessonRepository;
     
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Autowired
-    private MicroLessonRepository microLessonRepository;
+    public ProgressServiceImpl(ProgressRepository progressRepository, 
+                              UserRepository userRepository, 
+                              MicroLessonRepository microLessonRepository) {
+        this.progressRepository = progressRepository;
+        this.userRepository = userRepository;
+        this.microLessonRepository = microLessonRepository;
+    }
     
     @Override
-    public Progress recordProgress(Long userId, Long lessonId, Progress progress) {
+    public Progress recordProgress(Long userId, Long lessonId, Progress incoming) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        MicroLesson lesson = microLessonRepository.findById(lessonId)
-                .orElseThrow(() -> new RuntimeException("Lesson not found"));
+            .orElseThrow(() -> new RuntimeException("User not found"));
         
+        MicroLesson lesson = microLessonRepository.findById(lessonId)
+            .orElseThrow(() -> new RuntimeException("Lesson not found"));
+        
+        Optional<Progress> existing = progressRepository.findByUserIdAndMicroLessonId(userId, lessonId);
+        
+        Progress progress = existing.orElse(new Progress());
         progress.setUser(user);
         progress.setMicroLesson(lesson);
+        progress.setProgressPercent(incoming.getProgressPercent());
+        progress.setStatus(incoming.getStatus());
+        progress.setScore(incoming.getScore());
         
-        return progressRepository.findByUserIdAndMicroLessonId(userId, lessonId)
-                .map(existing -> {
-                    existing.setProgressPercent(progress.getProgressPercent());
-                    existing.setStatus(progress.getStatus());
-                    existing.setScore(progress.getScore());
-                    return progressRepository.save(existing);
-                })
-                .orElseGet(() -> progressRepository.save(progress));
+        return progressRepository.save(progress);
     }
     
     @Override
