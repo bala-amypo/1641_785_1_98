@@ -1,48 +1,28 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
+import com.example.demo.model.Recommendation;
+import com.example.demo.repository.RecommendationRepository;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.MicroLessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.Recommendation;
-import com.example.demo.repository.RecommendationRepository;
-import com.example.demo.service.RecommendationService;
-
-
 @Service
-public class RecommendationServiceImpl implements RecommendationService  {
-    @Autowired RecommendationRepository rr;
-
+public class RecommendationServiceImpl implements com.example.demo.service.RecommendationService {
+    
+    @Autowired
+    private RecommendationRepository recommendationRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private MicroLessonRepository microLessonRepository;
+    
     @Override
-    public Recommendation rpostdata(Recommendation r) {
-        return rr.save(r);
+    public Recommendation getLatestRecommendation(Long userId) {
+        return recommendationRepository.findByUserIdOrderByGeneratedAtDesc(userId)
+                .stream().findFirst()
+                .orElseThrow(() -> new RuntimeException("No recommendations found"));
     }
-
-    @Override
-    public List<Recommendation> rgetdata() {
-        return rr.findAll();
-    }
-
-    @Override
-    public Recommendation rgetid(Long id) {
-        return rr.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found"));
-    }
-
-    @Override
-    public Recommendation rupdatedata(Long id, Recommendation r) {
-        if(rr.existsById(id)){
-            r.setId(id);
-            return rr.save(r);
-        }
-        throw new ResourceNotFoundException("Not found");
-    }
-
-    @Override
-    public String rdelProgress(Long id) {
-        rr.deleteById(id);
-        return "Deleted Successfully";
-    }
-
 }

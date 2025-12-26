@@ -1,48 +1,50 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.service.UserService;
-
+import com.example.demo.security.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService {
-    @Autowired UserRepository ur;
-
+public class UserServiceImpl implements com.example.demo.service.UserService {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+    
+    @Autowired
+    private JwtUtil jwtUtil;
+    
     @Override
-    public User register(User u){
-        return ur.save(u);
-    }
-
-    @Override
-    public User findByid(Long id) {
-        return ur.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found"));
-    }
-
-    @Override
-    public List<User> getAll() {
-       return ur.findAll();
-    }
-
-    @Override
-    public String deldat(Long id) {
-        ur.deleteById(id);
-        return "Deleted Successfully";
-    }
-
-    @Override
-    public User updatadata(Long id,User u) {
-       if(ur.existsById(id)){
-        u.setId(id);
-        return ur.save(u);
-       }
-       return u;
+    public User register(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
+        user.setPassword(encoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
     
+    @Override
+    public AuthResponse login(String email, String password) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        if (!encoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+        
+        AuthResponse response = new AuthResponse();
+        response.setAccessToken(jwtUtil.generateToken(user.getEmail()));
+        return response;
+    }
+    
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
 }
