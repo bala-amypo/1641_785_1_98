@@ -31,23 +31,20 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class OpenApiConfig {
+public class SwaggerConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                // 1. Project Name and Description
                 .info(new Info()
-                        .title("Customer Loyalty Tier Upgrader API")
+                        .title("Micro Learning content Recommendation")
                         .version("1.0")
                         .description("API documentation for Customer Loyalty project"))
-                // 2. Your Specific Server URL (Preserved)
                 .servers(List.of(
                         new Server().url("https://9166.pro604cr.amypo.ai/")
                 ))
-                // 3. Add Authorize Padlock (Security Requirement)
                 .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
-                // 4. Define JWT Configuration
+
                 .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("Bearer Authentication", new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)
@@ -55,3 +52,5 @@ public class OpenApiConfig {
                                 .bearerFormat("JWT")));
     }
 }
+
+
